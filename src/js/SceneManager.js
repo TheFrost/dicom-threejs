@@ -15,9 +15,10 @@ export default class SceneManager {
     return scene;
   }
 
-  buildRender = ({ width, height }) => {
+  buildRender = ({ width, height }, context) => {
     const renderer = new THREE.WebGLRenderer({ 
-      canvas, 
+      canvas,
+      context,
       antialias: true, 
       alpha: true 
     });
@@ -55,15 +56,19 @@ export default class SceneManager {
     return sceneSubjects;
   }
 
-  constructor(canvas) {
+  constructor(canvas, context) {
     this.canvas = canvas;
+    this.context = context;
     this.screenDimentions = {
       width: this.canvas.width,
       height: this.canvas.height
     }
   
+    this.renderer = this.buildRender(
+      this.screenDimentions, 
+      this.context
+    );
     this.scene = this.buildScene();
-    this.renderer = this.buildRender(this.screenDimentions);
     this.camera = this.buildCamera(this.screenDimentions);
     this.sceneSubjects = this.createSceneSubjects(this.scene);
   }

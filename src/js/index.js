@@ -1,7 +1,8 @@
 import SceneManager from './SceneManager';
 
 const canvas = document.getElementById('canvas');
-const sceneManager = new SceneManager(canvas);
+const context = canvas.getContext('webgl2');
+const sceneManager = new SceneManager(canvas, context);
 
 const resizeCanvas = () => {
   canvas.style.width = '100%';
